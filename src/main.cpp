@@ -1,72 +1,63 @@
 #include <iostream>
 #include <string>
-#include <cstring>
 #include "./list/List.h"
+#include "./stack/Stack.h"
 
 using namespace std;
 
-List* taskList = new List();
+List taskList;
+Stack undoStack;
 
 void createTask() {
     char name[100];
     int priority, time;
 
-    printf("Nome da tarefa: ");
+    cout << endl << "==== Adicionar Tarefa ====" << endl;
+    cout << "Nome da tarefa: ";
     fgets(name, sizeof(name), stdin);
     name[strcspn(name, "\n")] = 0;
 
-    printf("Prioridade (1 = Alta, 2 = Média, 3 = Baixa): ");
+    cout << "Prioridade (1 = Alta, 2 = Media, 3 = Baixa): ";
     scanf("%d", &priority);
-    printf("Tempo estimado (minutos): ");
+    cout << "Tempo estimado (minutos): ";
     scanf("%d", &time);
     getchar();
 
-    struct Task* task = (struct Task*) malloc(sizeof(struct Task));
-
-    if (task == NULL) cout << "Erro ao alocar memória para a tarefa." << endl;
-
-    strcpy(task->name, name);
-    task->priority = priority;
-    task->time = time;
-
-    taskList->insert(task);
-    printf("Tarefa adicionada com sucesso!\n");
+    taskList.insertTask(name, priority, time);
+    cout << "Tarefa adicionada com sucesso!" << endl << endl;
 }
 
-void removerUltimaTarefa() {
-    taskList->removeFrist();
+void executeTask() {
+    Task* executeTask = taskList.remove();
+    cout << executeTask->name << endl;
+    undoStack.push(executeTask);
 }
 
 void desfazerRemocao() {
+    Task* executeTask = undoStack.pop();
+    cout << executeTask->name << endl;
+    taskList.push(executeTask);
 }
 
 int main() {
     int opcao;
-
-    cout << "Teste" << taskList->isEmpty() << endl;
-
     do {
-        printf("===== GERENCIADOR DE TAREFAS =====\n");
-        printf("1. Adicionar tarefa\n");
-        printf("2. Listar tarefas\n");
-        printf("3. Execute Task\n");
-        printf("4. Desfazer remoção\n");
-        printf("0. Sair\n");
-        printf("Escolha uma opcao: ");
+        cout << endl << "==== GERENCIADOR DE TAREFAS =====" << endl;
+        cout << "1. Adicionar tarefa" << endl;
+        cout << "2. Listar tarefas" << endl;
+        cout << "3. Execute Task" << endl;
+        cout << "4. Desfazer" << endl;
+        cout << "0. Sair" << endl;
+        cout << "Escolha uma opcao: ";
         scanf("%d", &opcao);
         getchar();
 
         switch (opcao) {
             case 1: createTask(); break;
-
-            case 2: taskList->print(); break;
-
-            case 3: removerUltimaTarefa(); break;
-
+            case 2: taskList.print(); break;
+            case 3: executeTask(); break;
             case 4: desfazerRemocao(); break;
-
             case 0: printf("Saindo...\n"); break;
-
             default: printf("Opcao invalida!\n");
         }
     } while (opcao != 0);

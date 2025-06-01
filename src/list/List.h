@@ -1,18 +1,11 @@
 #pragma once
 
 #include <iostream>
+#include <cstring>
+#include <Task.h>
+#include <Node.h>
+
 using namespace std;
-
-typedef struct Node {
-  struct Task *value;
-  struct Node *prev, *next;
-} Node;
-
-typedef struct Task {
-  char name[100];
-  int priority;
-  int time;
-} Task;
 
 class List {
   private:
@@ -20,13 +13,13 @@ class List {
     int size;
 
   public:
-  List();
-  void insert(Task *task);
-  void print();
-  Task* removeFrist();
-  int isEmpty();
-
-
+    List();
+    void append(Task *task);
+    void push(Task* task);
+    Task* remove();
+    void print();
+    int isEmpty();
+    void insertTask(const char name[100], int priority, int time);
 };
 
 
