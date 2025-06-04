@@ -1,2 +1,8 @@
 build
 doc
+CMakeFiles
+Makefile
+*.cmake
+.gitpod.**
+CMakeCache.txt
+main
