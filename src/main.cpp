@@ -6,6 +6,7 @@
 using namespace std;
 
 List taskList;
+// Pilha de desfazer
 Stack undoStack;
 
 void createTask() {
@@ -39,15 +40,37 @@ void desfazerRemocao() {
     taskList.push(executeTask);
 }
 
+void sort(){
+    int option = 0;
+    while (option == 0) {
+        cout << endl << "# Por qual campo deseja ordenar?" << endl;
+        cout << "1. Nome - {Selection Sort})" << endl;
+        cout << "2. Prioridade - {Bubble Sort})" << endl;
+        cout << "3. Tempo - {Intertion Sort})" << endl << endl;
+        cout << "Escolha uma opcao: ";
+        scanf("%d", &option);
+        getchar();
+        switch (option) {
+            case 1: taskList.sortByName(); break;
+            case 2: taskList.sortByPriority(); break;
+            case 3: taskList.sortByTime(); break;
+            default: printf("Opcao invalida!\n"); option = 0;
+        }
+    }
+    taskList.print();
+}
+
 int main() {
     int opcao;
+
     do {
         cout << endl << "==== GERENCIADOR DE TAREFAS =====" << endl;
         cout << "1. Adicionar tarefa" << endl;
         cout << "2. Listar tarefas" << endl;
-        cout << "3. Execute Task" << endl;
+        cout << "3. Realizar tarefa" << endl;
         cout << "4. Desfazer" << endl;
-        cout << "0. Sair" << endl;
+        cout << "5. Ordenar tarefas" << endl;
+        cout << "0. Sair" << endl << endl;
         cout << "Escolha uma opcao: ";
         scanf("%d", &opcao);
         getchar();
@@ -57,6 +80,7 @@ int main() {
             case 2: taskList.print(); break;
             case 3: executeTask(); break;
             case 4: desfazerRemocao(); break;
+            case 5: sort(); break;
             case 0: printf("Saindo...\n"); break;
             default: printf("Opcao invalida!\n");
         }

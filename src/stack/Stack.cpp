@@ -10,27 +10,27 @@ void Stack::push(Task* task){
 
   newNode->value = task;
   newNode->prev = NULL;
-  newNode->next = Stack::startNode;
+  newNode->next = this->startNode;
 
-  if (Stack::startNode)
-    Stack::startNode->prev = newNode;
+  if (this->startNode)
+    this->startNode->prev = newNode;
   else
-    Stack::endNode = newNode;
+    this->endNode = newNode;
 
-  Stack::startNode = newNode;
+  this->startNode = newNode;
 }
 
 //Remove do inicio
 Task* Stack::pop(){
-  if(!Stack::startNode) return NULL;
+  if(!this->startNode) return NULL;
 
-  Node* temp = Stack::startNode;
-  Stack::startNode = temp->next;
+  Node* temp = this->startNode;
+  this->startNode = temp->next;
 
-  if(Stack::startNode)
-    Stack::startNode->prev = NULL;
+  if(this->startNode)
+    this->startNode->prev = NULL;
   else
-    Stack::endNode = NULL;
+    this->endNode = NULL;
 
   Task* removed = temp->value;
   free(temp);
