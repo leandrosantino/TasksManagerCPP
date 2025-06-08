@@ -1,3 +1,10 @@
+/*
+ * Equipe:
+ * Leandro Santino Ferreira dos Santos
+ * Carolina Fernanda de S. da Silva
+ * Andrey Francisco Sá Leitão Dias
+ * Maria Gabriella dos Santos França
+*/
 #include <iostream>
 #include <string>
 #include "./list/List.h"
