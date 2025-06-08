@@ -30,7 +30,7 @@ void createTask() {
 
 void executeTask() {
     Task* executeTask = taskList.remove();
-    cout << executeTask->name << endl;
+    cout << endl << "A tarefa: '" << executeTask->name << "' foi finalizada!" << endl;
     undoStack.push(executeTask);
 }
 
