@@ -1,16 +1,16 @@
-#include "List.h"
+#include "TaskList.h"
 
-List::List(): startNode(NULL), endNode(NULL), size(0) {
-  this->insertTask("Adicionar nomes no codigo", 2, 7);
-  this->insertTask("Iniciar Projeto de Estrutura de dados", 1, 6);
-  this->insertTask("Subir Projeto no Github", 1, 5);
-  this->insertTask("Abiciar Projeto de Estrutura de dados", 3, 4);
-  this->insertTask("Criar mapa mental", 2, 3);
-  this->insertTask("Separar as falas", 3, 12);
-  this->insertTask("Modificar readme", 1, 1);
+TaskList::TaskList(): startNode(NULL), endNode(NULL), size(0) {
+  this->insertTask("Adicionar nomes no codigo", 2, 5);
+  this->insertTask("Iniciar Projeto de Estrutura de dados", 1, 60);
+  this->insertTask("Subir Projeto no Github", 1, 15);
+  this->insertTask("Criar mapa mental", 2, 30);
+  this->insertTask("Separar as falas", 3, 10);
+  this->insertTask("Modificar README.md", 3, 5);
+  this->sortByPriority();
 }
 
-void List::insertTask(const char name[100], int priority, int time) {
+void TaskList::insertTask(const char name[100], int priority, int time) {
   struct Task* task = (struct Task*) malloc(sizeof(struct Task));
   if (task == NULL) cout << "Erro ao alocar memória para a tarefa." << endl;
   strcpy(task->name, name);
@@ -19,12 +19,12 @@ void List::insertTask(const char name[100], int priority, int time) {
   this->append(task);
 }
 
-int List::isEmpty() {
+int TaskList::isEmpty() {
   return this->size == 0;
 }
 
 // Insere no Final
-void List::append(Task *task) {
+void TaskList::append(Task *task) {
   Node *newNode = (Node*)malloc(sizeof(Node));
   if(!newNode) {
     cerr << "Memory allocation failed!" << endl;
@@ -45,7 +45,7 @@ void List::append(Task *task) {
 }
 
 //Remove do inicio
-Task* List::remove() {
+Task* TaskList::remove() {
   if(this->isEmpty()) return NULL;
 
   Node *temp = this->startNode;
@@ -71,7 +71,7 @@ string pad(string str, size_t totalLength, char fillChar = '0', char p = 'l') {
   return str;
 }
 
-void List::print() {
+void TaskList::print() {
   Node* current = this->startNode;
   cout << endl << "Minhas Tarefas" << endl;
 
@@ -99,25 +99,8 @@ void List::print() {
   cout<< line << endl;
 }
 
-// Adiciona No inicio
-void List::push(Task* task){
-  Node *newNode = (Node*)malloc(sizeof(Node));
-  if(!newNode) return;
-
-  newNode->value = task;
-  newNode->prev = NULL;
-  newNode->next = this->startNode;
-
-  if (this->startNode)
-    this->startNode->prev = newNode;
-  else
-    endNode = newNode;
-
-  this->startNode = newNode;
-}
-
 //bubbleSort
-void List::sortByPriority() {
+void TaskList::sortByPriority() {
   Node* currentI = this->startNode;
   for (int i = 0; i < this->size - 1; i++) {
     Node* currentJ = this->startNode;
@@ -134,28 +117,28 @@ void List::sortByPriority() {
 }
 
 //insertionSort
-void List::sortByTime() {
+void TaskList::sortByTime() {
   int i, j;
   Task* key;
   Node* currentI = this->startNode->next;
   while (currentI != NULL) {
-    // cout << currentI->value->name << endl;
     key = currentI->value;
 
     Node* currentJ = currentI->prev;
     while(currentJ != NULL && currentJ->value->time > key->time){
-      // cout << "   - " << currentJ->value->name << endl;
       currentJ->next->value = currentJ->value;
       currentJ = currentJ->prev;
     }
-    this->startNode->value = key;
+
+    if(currentJ == NULL) this->startNode->value = key;
+    else currentJ->next->value = key;
 
     currentI = currentI->next;
   }
 }
 
 //selectionSort
-void List::sortByName() {
+void TaskList::sortByName() {
   Task* temp;
   Node* minIndex;
   Node* currentI = this->startNode;

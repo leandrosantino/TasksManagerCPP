@@ -8,21 +8,18 @@
 
 using namespace std;
 
-class List {
+class TaskList {
   private:
     Node *startNode, *endNode;
     int size;
 
   public:
-    List();
+    TaskList();
     //inserir no final
     void append(Task *task);
 
     //remover do começo
     Task* remove();
-
-    // // inserir no começo;
-    void push(Task* task);
 
     void sortByPriority();
     void sortByTime();

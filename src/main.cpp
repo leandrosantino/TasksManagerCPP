@@ -7,12 +7,13 @@
 */
 #include <iostream>
 #include <string>
-#include "./list/List.h"
+#include "./task-list/TaskList.h"
 #include "./stack/Stack.h"
 
 using namespace std;
 
-List taskList;
+// Lista de tarefas
+TaskList taskList;
 // Pilha de desfazer
 Stack undoStack;
 
@@ -32,19 +33,27 @@ void createTask() {
     getchar();
 
     taskList.insertTask(name, priority, time);
-    cout << "Tarefa adicionada com sucesso!" << endl << endl;
+    cout << endl << "Tarefa adicionada com sucesso!" << endl << endl;
+    taskList.print();
 }
 
 void executeTask() {
     Task* executeTask = taskList.remove();
     cout << endl << "A tarefa: '" << executeTask->name << "' foi finalizada!" << endl;
     undoStack.push(executeTask);
+    taskList.print();
 }
 
-void desfazerRemocao() {
+void undoRemove() {
     Task* executeTask = undoStack.pop();
-    cout << executeTask->name << endl;
-    taskList.push(executeTask);
+    if(executeTask == NULL) {
+        cout << endl << "Nenhuma tarefa para desfazer" << endl;
+        return;
+    }
+    cout << endl << "A tarefa: '" << executeTask->name << "' foi devolvida para a lista!" << endl;
+    taskList.append(executeTask);
+    taskList.sortByPriority();
+    taskList.print();
 }
 
 void sort(){
@@ -69,7 +78,6 @@ void sort(){
 
 int main() {
     int opcao;
-
     do {
         cout << endl << "==== GERENCIADOR DE TAREFAS =====" << endl;
         cout << "1. Adicionar tarefa" << endl;
@@ -86,7 +94,7 @@ int main() {
             case 1: createTask(); break;
             case 2: taskList.print(); break;
             case 3: executeTask(); break;
-            case 4: desfazerRemocao(); break;
+            case 4: undoRemove(); break;
             case 5: sort(); break;
             case 0: printf("Saindo...\n"); break;
             default: printf("Opcao invalida!\n");
