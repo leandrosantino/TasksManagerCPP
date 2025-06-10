@@ -1,5 +1,16 @@
 # Lista de tarefas
 
+O projeto implementa uma CLI para gerenciar tarefas escrita completamente em C++.
+É um projeto de estudo para a matéria de Estrutura de Dados.
+
+Foi implementado do zero listas encadeadas aplicando os conceitos de `Pilha` e `Fila`. 
+
+## Equipe
+- Leandro Santino
+- Carolina Fernanda
+- Andrey Francisco
+- Maria Gabriella
+
 ## Como rodar
 
 ### Windows
