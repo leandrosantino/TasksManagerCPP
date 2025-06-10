@@ -17,6 +17,8 @@ class TaskList {
     TaskList();
     //inserir no final
     void append(Task *task);
+    //inserir no começo
+    void push(Task* task);
 
     //remover do começo
     Task* remove();

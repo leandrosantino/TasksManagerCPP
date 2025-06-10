@@ -44,6 +44,23 @@ void TaskList::append(Task *task) {
   this->size++;
 }
 
+// Insere no inicio
+void TaskList::push(Task* task){
+  Node *newNode = (Node*)malloc(sizeof(Node));
+  if(!newNode) return;
+
+  newNode->value = task;
+  newNode->prev = NULL;
+  newNode->next = this->startNode;
+
+  if (this->startNode)
+    this->startNode->prev = newNode;
+  else
+    this->endNode = newNode;
+
+  this->startNode = newNode;
+}
+
 //Remove do inicio
 Task* TaskList::remove() {
   if(this->isEmpty()) return NULL;

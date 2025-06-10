@@ -39,6 +39,10 @@ void createTask() {
 
 void executeTask() {
     Task* executeTask = taskList.remove();
+    if(executeTask == NULL) {
+        cout << endl << "Nenhuma tarefa na lista!" << endl;
+        return;
+    }
     cout << endl << "A tarefa: '" << executeTask->name << "' foi finalizada!" << endl;
     undoStack.push(executeTask);
     taskList.print();
@@ -51,7 +55,7 @@ void undoRemove() {
         return;
     }
     cout << endl << "A tarefa: '" << executeTask->name << "' foi devolvida para a lista!" << endl;
-    taskList.append(executeTask);
+    taskList.push(executeTask);
     taskList.sortByPriority();
     taskList.print();
 }
@@ -60,9 +64,9 @@ void sort(){
     int option = 0;
     while (option == 0) {
         cout << endl << "# Por qual campo deseja ordenar?" << endl;
-        cout << "1. Nome - {Selection Sort})" << endl;
-        cout << "2. Prioridade - {Bubble Sort})" << endl;
-        cout << "3. Tempo - {Intertion Sort})" << endl << endl;
+        cout << "1. Nome - {Selection Sort}" << endl;
+        cout << "2. Prioridade - {Bubble Sort}" << endl;
+        cout << "3. Tempo - {Insertion Sort}" << endl << endl;
         cout << "Escolha uma opcao: ";
         scanf("%d", &option);
         getchar();

@@ -2,6 +2,8 @@
 
 ## Como rodar
 
+### Windows
+
 Tenha o MinGW e o CMake instalados
 
 Crie a pasta build na raiz do projeto e mude para ela
@@ -21,4 +23,21 @@ Por fim basta apenas execultar o arquivo main
 ```sh
 ./main
 ```
-Ou se vc estiver no winodws pode simplesmente rodar o arquivo `tasks.exe` localizado na raiz do projeto
+Ou se você preferir pode simplesmente rodar o arquivo `tasks-win_x86.exe` localizado na raiz do projeto com o seguinte comando 
+```sh
+./tasks-win_x86.exe
+```
+
+### Linux
+
+Tenha o MinGW e o CMake instalados
+
+Na pasta raiz do projeto rode o seguinte comando para compilar e execultar o código
+```sh
+make && ./main
+```
+
+Ou se você preferir pode simplesmente rodar o arquivo `tasks-linux` localizado na raiz do projeto com o seguinte comando 
+```sh
+./tasks-linux
+```
